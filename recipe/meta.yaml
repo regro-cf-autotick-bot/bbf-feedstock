@@ -1,5 +1,5 @@
 {% set name = "bbf" %}
-{% set version = "0.4.0" %}
+{% set version = "0.5.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
-  sha256: 293e7f29166016c1cfb209cede182e655c8487ddb58eff1be5f23440cbc45a50
+  sha256: b8456c2334bce542eeed95ed42717e52951fb63cb58b71388218d2b608db1d3e
 
 build:
   skip: true  # [py<39 or win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
