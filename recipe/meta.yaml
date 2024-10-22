@@ -1,5 +1,5 @@
 {% set name = "bbf" %}
-{% set version = "0.4.0" %}
+{% set version = "0.5.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/bbf-{{ version }}.tar.gz
-  sha256: 293e7f29166016c1cfb209cede182e655c8487ddb58eff1be5f23440cbc45a50
+  sha256: b0bb6c15df8a7ef417ff9989a60801da924af921671b67ec2f575d0f83188812
 
 build:
   skip: true  # [py<39 or win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -35,7 +35,9 @@ requirements:
   run:
     - python
     - astropy
+    - fastparquet
     - getcalspec
+    - healpy
     - matplotlib-base
     - numpy
     - pandas
@@ -50,12 +52,17 @@ test:
     - bbf
   commands:
     - pip check
+    - pip install gaiaxpy lemaitre-bandpasses git+https://github.com/nregnault/sncosmo.git
     - pytest -v tests
   source_files:
     - tests
   requires:
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
+    - git
     - pip
     - pytest
+    - pytest-cov
 
 about:
   home: https://gitlab.in2p3.fr/lemaitre/bbf
